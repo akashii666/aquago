@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AquaGo Water Delivery</title>
+<meta name="description" content="Order purified water from Halili Water Station and track your delivery live. Download the AquaGo Android app.">
+<link rel="icon" href="aquago.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f1f9fc;
+    --surface: #ffffff;
+    --surface-2: #e6f4fa;
+    --text: #0b2545;
+    --muted: #4a6382;
+    --primary: #0077b6;
+    --primary-ink: #ffffff;
+    --navy: #023e8a;
+    --aqua: #caf0f8;
+    --border: #d3e6f0;
+    --shadow: 0 10px 30px rgba(2, 62, 138, .10);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #071526;
+      --surface: #0d2036;
+      --surface-2: #112a46;
+      --text: #e6f1fb;
+      --muted: #9db4cc;
+      --primary: #38a8e8;
+      --primary-ink: #04121f;
+      --navy: #7cc6f2;
+      --aqua: #123a5c;
+      --border: #1d3a5a;
+      --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #071526;
+    --surface: #0d2036;
+    --surface-2: #112a46;
+    --text: #e6f1fb;
+    --muted: #9db4cc;
+    --primary: #38a8e8;
+    --primary-ink: #04121f;
+    --navy: #7cc6f2;
+    --aqua: #123a5c;
+    --border: #1d3a5a;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.6;
+  }
+  a { color: var(--primary); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+
+  /* Nav */
+  header.nav {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 12px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .brand img { width: 32px; height: 32px; }
+  .nav nav { display: flex; gap: 20px; }
+  .nav nav a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: .92rem; }
+  .nav nav a:hover { color: var(--text); }
+  @media (max-width: 640px) { .nav nav { display: none; } }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 13px 22px; border-radius: 12px; font-weight: 700; text-decoration: none;
+    border: 1px solid transparent; font-size: 1rem; cursor: pointer;
+  }
+  .btn-primary { background: var(--primary); color: var(--primary-ink); }
+  .btn-primary:hover { filter: brightness(1.08); }
+  .btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
+  .btn-ghost:hover { background: var(--surface-2); }
+  .btn svg { width: 20px; height: 20px; }
+
+  /* Hero */
+  .hero { padding: 64px 0 56px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; }
+  @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; gap: 36px; } .hero { padding-top: 40px; } }
+  .eyebrow {
+    display: inline-block; background: var(--aqua); color: var(--navy);
+    padding: 5px 12px; border-radius: 999px; font-size: .82rem; font-weight: 700; margin-bottom: 18px;
+  }
+  .hero h1 { font-size: clamp(2.1rem, 5vw, 3.3rem); line-height: 1.1; margin: 0 0 18px; letter-spacing: -.02em; }
+  .hero h1 span { color: var(--primary); }
+  .hero p.lead { font-size: 1.12rem; color: var(--muted); margin: 0 0 28px; max-width: 34em; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .meta { margin-top: 16px; font-size: .88rem; color: var(--muted); }
+
+  .qr-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 22px;
+    box-shadow: var(--shadow); padding: 28px; text-align: center; max-width: 360px; justify-self: center; width: 100%;
+  }
+  .qr-card h2 { margin: 0 0 4px; font-size: 1.15rem; }
+  .qr-card p { margin: 0 0 18px; color: var(--muted); font-size: .92rem; }
+  .qr-box {
+    background: #ffffff; border-radius: 14px; padding: 14px; display: inline-block;
+    border: 1px solid var(--border); position: relative;
+  }
+  #qr { width: 220px; height: 220px; display: grid; place-items: center; }
+  #qr img, #qr canvas { display: block; width: 220px !important; height: 220px !important; }
+  .qr-logo {
+    position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; transform: translate(-50%, -50%);
+    background: #fff; border-radius: 12px; padding: 4px;
+  }
+  .qr-note { font-size: .8rem; color: var(--muted); margin-top: 14px; word-break: break-all; }
+  .qr-fallback { color: #4a6382; font-size: .85rem; padding: 0 12px; }
+
+  /* Sections */
+  section { padding: 56px 0; }
+  section.alt { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .section-head { max-width: 640px; margin-bottom: 32px; }
+  .section-head h2 { font-size: clamp(1.6rem, 3.5vw, 2.1rem); margin: 0 0 8px; letter-spacing: -.01em; }
+  .section-head p { margin: 0; color: var(--muted); }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 22px;
+  }
+  section:not(.alt) .card { background: var(--surface); }
+  .card .ico {
+    width: 42px; height: 42px; border-radius: 12px; background: var(--aqua); color: var(--navy);
+    display: grid; place-items: center; margin-bottom: 14px;
+  }
+  .card .ico svg { width: 22px; height: 22px; }
+  .card h3 { margin: 0 0 6px; font-size: 1.08rem; }
+  .card ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: .94rem; }
+  .card li { margin: 4px 0; }
+
+  .steps { counter-reset: step; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; list-style: none; padding: 0; margin: 0; }
+  @media (max-width: 860px) { .steps { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+  .steps li { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; position: relative; }
+  section.alt .steps li { background: var(--bg); }
+  .steps li::before {
+    counter-increment: step; content: counter(step);
+    display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
+    background: var(--primary); color: var(--primary-ink); font-weight: 800; margin-bottom: 12px;
+  }
+  .steps h3 { margin: 0 0 4px; font-size: 1rem; }
+  .steps p { margin: 0; color: var(--muted); font-size: .92rem; }
+
+  .install { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 760px) { .install { grid-template-columns: 1fr; } }
+  .spec { width: 100%; border-collapse: collapse; font-size: .94rem; }
+  .spec td { padding: 9px 0; border-bottom: 1px solid var(--border); }
+  .spec td:first-child { color: var(--muted); width: 45%; }
+  .spec tr:last-child td { border-bottom: 0; }
+  .card ol { margin: 0; padding-left: 20px; color: var(--muted); font-size: .94rem; }
+  .card ol li { margin: 6px 0; }
+  .card ol strong { color: var(--text); }
+
+  details {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 4px 20px; margin-bottom: 10px;
+  }
+  section.alt details { background: var(--bg); }
+  summary { cursor: pointer; font-weight: 700; padding: 14px 0; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; color: var(--primary); font-size: 1.3rem; line-height: 1; }
+  details[open] summary::after { content: "−"; }
+  details p { margin: 0 0 16px; color: var(--muted); }
+
+  footer { padding: 32px 0 40px; color: var(--muted); font-size: .88rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: center; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="aquago.svg" alt="">AquaGo</a>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#install">Install</a>
+      <a href="#accounts">Demo accounts</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-primary" href="aquago.apk" download style="padding:9px 16px;font-size:.9rem">Download</a>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Halili Water Station · NEUST Papaya Off-Campus</span>
+        <h1>Purified water, <span>delivered</span> to your door.</h1>
+        <p class="lead">Order gallons and refills in a few taps, pay cash on delivery, and follow your rider live on the map until the water arrives.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="aquago.apk" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+            Download APK
+          </a>
+          <a class="btn btn-ghost" href="#install">How to install</a>
+        </div>
+        <p class="meta">Android 7.0 or newer · Version 1.0 · <span id="apk-size">9.7 MB</span></p>
+      </div>
+
+      <div class="qr-card">
+        <h2>Scan to download</h2>
+        <p>Point your phone camera at the code.</p>
+        <div class="qr-box">
+          <div id="qr"></div>
+          <img class="qr-logo" src="aquago.svg" alt="" id="qr-logo" hidden>
+        </div>
+        <div class="qr-note" id="qr-note"></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="alt" id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>One app for the whole station</h2>
+        <p>Customers, riders and the station admin all use the same app. Your account decides which screens you see.</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.6L22 7H6"/></svg></div>
+          <h3>For customers</h3>
+          <ul>
+            <li>Browse gallons, refills, bottled water and accessories</li>
+            <li>Cart and checkout with your saved address and landmark</li>
+            <li>Live tracking with the rider's position and ETA</li>
+            <li>Order history, receipts and gallon returns</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6h2l3 7.5"/><path d="M5.5 17.5 9 9h6l3.5 8.5"/></svg></div>
+          <h3>For riders</h3>
+          <ul>
+            <li>List of assigned deliveries with address and items</li>
+            <li>Call or text the customer, open directions in Maps</li>
+            <li>Mark delivered or can't deliver, then retry</li>
+            <li>Share live location while on the road</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg></div>
+          <h3>For the station</h3>
+          <ul>
+            <li>Dashboard of today's orders and deliveries</li>
+            <li>Inventory, gallon counts and low-stock alerts</li>
+            <li>Customers, riders, payments and reports</li>
+            <li>Changes appear on every phone in realtime</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>How it works</h2>
+        <p>From order to doorstep in four steps.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>Create an account</h3><p>Sign up with your email, name, number and delivery address.</p></li>
+        <li><h3>Place an order</h3><p>Pick your water and how many, then check out. Pay cash when it arrives.</p></li>
+        <li><h3>The station prepares it</h3><p>The admin confirms your order and assigns a rider.</p></li>
+        <li><h3>Track your rider</h3><p>Watch the rider on the map with a live ETA until delivery.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="alt" id="install">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Install on Android</h2>
+        <p>The app is not on the Play Store yet, so Android will ask you to allow the install.</p>
+      </div>
+      <div class="install">
+        <div class="card">
+          <h3>Steps</h3>
+          <ol>
+            <li>Scan the QR code or tap <strong>Download APK</strong>.</li>
+            <li>When the download finishes, open <strong>aquago.apk</strong>.</li>
+            <li>If asked, allow <strong>Install unknown apps</strong> for your browser or Files app.</li>
+            <li>Tap <strong>Install</strong>, then <strong>Open</strong>.</li>
+            <li>Sign up as a customer, or log in with the account the station gave you.</li>
+          </ol>
+        </div>
+        <div class="card">
+          <h3>App details</h3>
+          <table class="spec">
+            <tr><td>App name</td><td>Halili Water Station</td></tr>
+            <tr><td>Version</td><td>1.0</td></tr>
+            <tr><td>File size</td><td id="apk-size-2">9.7 MB</td></tr>
+            <tr><td>Requires</td><td>Android 7.0 or newer</td></tr>
+            <tr><td>Updates</td><td>Download the new APK from this page</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="accounts">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Try it with the demo accounts</h2>
+        <p>The app works on any phone and any internet connection, even with no internet, because the demo keeps its data on your phone. Log in with one of these accounts to see each side of the system.</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>Customer</h3>
+          <table class="spec">
+            <tr><td>Username</td><td><code>rj</code></td></tr>
+            <tr><td>Password</td><td><code>rj123</code></td></tr>
+          </table>
+          <p style="margin:12px 0 0;color:var(--muted);font-size:.92rem">Or tap Sign up to make your own customer account.</p>
+        </div>
+        <div class="card">
+          <h3>Rider</h3>
+          <table class="spec">
+            <tr><td>Username</td><td><code>rider</code></td></tr>
+            <tr><td>Password</td><td><code>rider123</code></td></tr>
+          </table>
+        </div>
+        <div class="card">
+          <h3>Station admin</h3>
+          <table class="spec">
+            <tr><td>Username</td><td><code>admin</code></td></tr>
+            <tr><td>Password</td><td><code>Superadmin_01</code></td></tr>
+          </table>
+        </div>
+      </div>
+      <p style="margin:18px 0 0;color:var(--muted);font-size:.92rem">Tip: place an order as the customer, log out, then log in as the admin to accept it and assign the rider. Log in as the rider to deliver it.</p>
+    </div>
+  </section>
+
+  <section class="alt" id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>FAQ</h2>
+      </div>
+      <details>
+        <summary>Do I need to be on the station's Wi-Fi?</summary>
+        <p>No. The app runs on your phone, so it works on any Wi-Fi or mobile data. To share live data with the station instead, tap "Server" on the login screen and enter the station's server link.</p>
+      </details>
+      <details>
+        <summary>Android says the app could be harmful. Is it safe?</summary>
+        <p>Android shows this for any app installed outside the Play Store. Download the APK only from this page, then choose Install anyway.</p>
+      </details>
+      <details>
+        <summary>The QR code doesn't scan.</summary>
+        <p>Turn up your screen brightness and hold the camera about 20 cm away. If your camera has no QR scanner, use Google Lens or open this page on your phone and tap Download APK.</p>
+      </details>
+      <details>
+        <summary>How do I pay?</summary>
+        <p>Cash on delivery. The rider's screen shows the exact amount to collect.</p>
+      </details>
+      <details>
+        <summary>I forgot my password.</summary>
+        <p>Tap "Forgot password?" on the login screen. If no code arrives, contact the station and they can reset it for you.</p>
+      </details>
+      <details>
+        <summary>How do I update the app?</summary>
+        <p>The APK does not update itself. Download the newest version from this page and install it over the old one. Your account stays the same.</p>
+      </details>
+      <details>
+        <summary>Is there an iPhone version?</summary>
+        <p>Not yet. The app is available for Android only.</p>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> AquaGo · Halili Water Station</span>
+    <a href="aquago.apk" download>Download APK</a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  (function () {
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // The QR points at the APK next to this page, so it stays right wherever the site is hosted.
+    var apkUrl = new URL('aquago.apk', location.href).href;
+    var box = document.getElementById('qr');
+    var note = document.getElementById('qr-note');
+
+    if (location.protocol === 'file:') {
+      box.innerHTML = '<div class="qr-fallback">The QR code appears once this page is online.</div>';
+      return;
+    }
+    if (typeof QRCode === 'undefined') {
+      box.innerHTML = '<div class="qr-fallback">Couldn’t load the QR code. Use the Download button instead.</div>';
+      return;
+    }
+    new QRCode(box, {
+      text: apkUrl,
+      width: 440,
+      height: 440,
+      colorDark: '#023e8a',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+    document.getElementById('qr-logo').hidden = false;
+    note.textContent = apkUrl;
+
+    // Show the real file size when the server reports it.
+    fetch(apkUrl, { method: 'HEAD' }).then(function (res) {
+      var bytes = Number(res.headers.get('content-length'));
+      if (!res.ok || !bytes) return;
+      var mb = (bytes / 1048576).toFixed(1) + ' MB';
+      document.getElementById('apk-size').textContent = mb;
+      document.getElementById('apk-size-2').textContent = mb;
+    }).catch(function () {});
+  })();
+</script>
+</body>
+</html>
