@@ -194,7 +194,7 @@
       <a href="#install">Install</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="btn btn-primary" href="aquago.apk" download style="padding:9px 16px;font-size:.9rem">Download</a>
+    <a class="btn btn-primary" href="#install" style="padding:9px 16px;font-size:.9rem">Get the app</a>
   </div>
 </header>
 
@@ -202,22 +202,25 @@
   <div class="hero">
     <div class="wrap">
       <div>
-        <span class="eyebrow">Halili Water Station · NEUST Papaya Off-Campus</span>
+        <span class="eyebrow">Halili Water Station</span>
         <h1>Purified water, <span>delivered</span> to your door.</h1>
         <p class="lead">Order gallons and refills in a few taps, pay cash on delivery, and follow your rider live on the map until the water arrives.</p>
-        <div class="cta">
-          <a class="btn btn-primary" href="aquago.apk" download>
+        <div class="cta" id="cta">
+          <a class="btn btn-primary" id="btn-android" href="aquago.apk" download>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-            Download APK
+            Download for Android
           </a>
-          <a class="btn btn-ghost" href="#install">How to install</a>
+          <a class="btn btn-ghost" id="btn-ios" href="app/">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
+            Open on iPhone
+          </a>
         </div>
-        <p class="meta">Android 7.0 or newer · Version 1.0 · <span id="apk-size">9.7 MB</span></p>
+        <p class="meta" id="meta">Android: APK, 7.0 or newer · <span id="apk-size">9.7 MB</span> &nbsp;·&nbsp; iPhone: opens in Safari, add it to your Home Screen</p>
       </div>
 
       <div class="qr-card">
-        <h2>Scan to download</h2>
-        <p>Point your phone camera at the code.</p>
+        <h2>Scan with your phone</h2>
+        <p>Opens this page on your phone. Then tap the button for Android or iPhone.</p>
         <div class="qr-box">
           <div id="qr"></div>
           <img class="qr-logo" src="aquago.svg" alt="" id="qr-logo" hidden>
@@ -286,29 +289,27 @@
   <section class="alt" id="install">
     <div class="wrap">
       <div class="section-head">
-        <h2>Install on Android</h2>
-        <p>The app is not on the Play Store yet, so Android will ask you to allow the install.</p>
+        <h2>Get the app</h2>
+        <p>The app runs on your phone, like any app: no account with us, no station Wi-Fi needed. Customers tap <strong>Sign up</strong>. The station owner taps <strong>Set up the admin account</strong> on the login screen the first time.</p>
       </div>
       <div class="install">
-        <div class="card">
-          <h3>Steps</h3>
+        <div class="card" id="card-android">
+          <h3>Android</h3>
           <ol>
-            <li>Scan the QR code or tap <strong>Download APK</strong>.</li>
+            <li>Tap <a href="aquago.apk" download><strong>Download for Android</strong></a>.</li>
             <li>When the download finishes, open <strong>aquago.apk</strong>.</li>
             <li>If asked, allow <strong>Install unknown apps</strong> for your browser or Files app.</li>
             <li>Tap <strong>Install</strong>, then <strong>Open</strong>.</li>
-            <li>Sign up as a customer, or log in with the account the station gave you.</li>
           </ol>
         </div>
-        <div class="card">
-          <h3>App details</h3>
-          <table class="spec">
-            <tr><td>App name</td><td>Halili Water Station</td></tr>
-            <tr><td>Version</td><td>1.0</td></tr>
-            <tr><td>File size</td><td id="apk-size-2">9.7 MB</td></tr>
-            <tr><td>Requires</td><td>Android 7.0 or newer</td></tr>
-            <tr><td>Updates</td><td>Download the new APK from this page</td></tr>
-          </table>
+        <div class="card" id="card-ios">
+          <h3>iPhone</h3>
+          <ol>
+            <li>Open this page in <strong>Safari</strong>.</li>
+            <li>Tap <a href="app/"><strong>Open on iPhone</strong></a>. The app opens right away.</li>
+            <li>To keep it like an app, tap the <strong>Share</strong> button, then <strong>Add to Home Screen</strong>, then <strong>Add</strong>.</li>
+            <li>Open <strong>AquaGo</strong> from your Home Screen next time.</li>
+          </ol>
         </div>
       </div>
     </div>
@@ -320,8 +321,16 @@
         <h2>FAQ</h2>
       </div>
       <details>
-        <summary>Do I need to be on the station's Wi-Fi?</summary>
-        <p>No. The app runs on your phone, so it works on any Wi-Fi or mobile data. To share live data with the station instead, tap "Server" on the login screen and enter the station's server link.</p>
+        <summary>Does it need the internet?</summary>
+        <p>Only for the map. Everything else works on any Wi-Fi, on mobile data, or with no connection at all.</p>
+      </details>
+      <details>
+        <summary>Where is my data saved?</summary>
+        <p>On your phone. Your orders, accounts and settings stay on the phone where you made them.</p>
+      </details>
+      <details>
+        <summary>How do I open the admin side?</summary>
+        <p>On the login screen, tap Set up the admin account (it shows until an admin exists on that phone). From the admin side you can add riders and give them a rider-app login.</p>
       </details>
       <details>
         <summary>Android says the app could be harmful. Is it safe?</summary>
@@ -329,7 +338,7 @@
       </details>
       <details>
         <summary>The QR code doesn't scan.</summary>
-        <p>Turn up your screen brightness and hold the camera about 20 cm away. If your camera has no QR scanner, use Google Lens or open this page on your phone and tap Download APK.</p>
+        <p>Turn up your screen brightness and hold the camera about 20 cm away. If your camera has no QR scanner, use Google Lens, or type this page's address into your phone's browser.</p>
       </details>
       <details>
         <summary>How do I pay?</summary>
@@ -341,11 +350,11 @@
       </details>
       <details>
         <summary>How do I update the app?</summary>
-        <p>The APK does not update itself. Download the newest version from this page and install it over the old one. Your account stays the same.</p>
+        <p>On iPhone, the app is always up to date. On Android, the APK does not update itself: download the newest version from this page and install it over the old one. Your account stays the same.</p>
       </details>
       <details>
-        <summary>Is there an iPhone version?</summary>
-        <p>Not yet. The app is available for Android only.</p>
+        <summary>Why can't I download the APK on my iPhone?</summary>
+        <p>APK files are for Android only. On iPhone, tap Open on iPhone instead and add it to your Home Screen.</p>
       </details>
     </div>
   </section>
@@ -354,7 +363,7 @@
 <footer>
   <div class="wrap">
     <span>© <span id="year">2026</span> AquaGo · Halili Water Station</span>
-    <a href="aquago.apk" download>Download APK</a>
+    <span><a href="aquago.apk" download>Android APK</a> · <a href="app/">iPhone web app</a></span>
   </div>
 </footer>
 
@@ -363,7 +372,20 @@
   (function () {
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // The QR points at the APK next to this page, so it stays right wherever the site is hosted.
+    // iPhones can't install an APK: lead with the web app there.
+    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if (isIOS) {
+      var android = document.getElementById('btn-android');
+      var ios = document.getElementById('btn-ios');
+      android.className = 'btn btn-ghost';
+      ios.className = 'btn btn-primary';
+      ios.parentNode.insertBefore(ios, android);
+      var cardIos = document.getElementById('card-ios');
+      cardIos.parentNode.insertBefore(cardIos, document.getElementById('card-android'));
+    }
+
+    // The QR opens this page, which then offers the right button for the phone (Android or iPhone).
+    var pageUrl = location.origin + location.pathname;
     var apkUrl = new URL('aquago.apk', location.href).href;
     var box = document.getElementById('qr');
     var note = document.getElementById('qr-note');
@@ -377,7 +399,7 @@
       return;
     }
     new QRCode(box, {
-      text: apkUrl,
+      text: pageUrl,
       width: 440,
       height: 440,
       colorDark: '#023e8a',
@@ -385,7 +407,7 @@
       correctLevel: QRCode.CorrectLevel.H
     });
     document.getElementById('qr-logo').hidden = false;
-    note.textContent = apkUrl;
+    note.textContent = pageUrl;
 
     // Show the real file size when the server reports it.
     fetch(apkUrl, { method: 'HEAD' }).then(function (res) {
@@ -393,7 +415,6 @@
       if (!res.ok || !bytes) return;
       var mb = (bytes / 1048576).toFixed(1) + ' MB';
       document.getElementById('apk-size').textContent = mb;
-      document.getElementById('apk-size-2').textContent = mb;
     }).catch(function () {});
   })();
 </script>

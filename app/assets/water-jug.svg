@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 420" fill="none">
+  <defs>
+    <linearGradient id="jug" x1="77" x2="249" y1="92" y2="340" gradientUnits="userSpaceOnUse"><stop stop-color="#F7FFFF" stop-opacity=".94"/><stop offset=".45" stop-color="#C7E8E7" stop-opacity=".82"/><stop offset="1" stop-color="#72B5B8" stop-opacity=".86"/></linearGradient>
+    <linearGradient id="water" x1="160" x2="160" y1="220" y2="365" gradientUnits="userSpaceOnUse"><stop stop-color="#68C8C4" stop-opacity=".4"/><stop offset="1" stop-color="#2B8E9A" stop-opacity=".76"/></linearGradient>
+    <linearGradient id="cap" x1="139" x2="184" y1="52" y2="92" gradientUnits="userSpaceOnUse"><stop stop-color="#F5A36E"/><stop offset="1" stop-color="#D9764F"/></linearGradient>
+  </defs>
+  <ellipse cx="161" cy="387" fill="#276C6B" fill-opacity=".13" rx="103" ry="17"/>
+  <path d="M132 77h57c4 0 7 3 7 7v22h-71V84c0-4 3-7 7-7Z" fill="url(#cap)"/><path d="M127 93h68v20h-68z" fill="#D9F0EC"/>
+  <path d="M107 111c-5-13 4-25 18-25h72c14 0 23 12 18 25l-9 27c-2 8 1 16 9 24 30 31 45 69 45 118v54c0 20-16 36-36 36H97c-20 0-36-16-36-36v-54c0-49 15-87 45-118 8-8 11-16 8-24l-7-27Z" fill="url(#jug)" stroke="#4E969A" stroke-width="5"/>
+  <path d="M72 260c26-13 54-12 83-4 40 11 80 7 111-10v88c0 13-11 24-24 24H97c-14 0-25-11-25-25v-73Z" fill="url(#water)"/><path d="M82 185c12-21 29-35 50-47" stroke="#fff" stroke-linecap="round" stroke-opacity=".77" stroke-width="10"/><path d="M105 150c-8 13-14 28-17 45" stroke="#fff" stroke-linecap="round" stroke-opacity=".48" stroke-width="6"/><path d="M213 194c10 19 15 42 15 67" stroke="#fff" stroke-linecap="round" stroke-opacity=".4" stroke-width="5"/>
+  <rect x="94" y="275" width="134" height="47" rx="3" fill="#F7FBF7" fill-opacity=".95"/><path d="M109 289h20v20h-20z" fill="#17616A"/><path d="M119 293c-4 5-6 8-6 11a6 6 0 1 0 12 0c0-3-2-6-6-11Z" fill="#D8EB76"/><text x="137" y="296" fill="#18383A" font-family="Arial,sans-serif" font-size="9" font-weight="700" letter-spacing="1.2">AQUAGO</text><text x="137" y="309" fill="#68817E" font-family="Arial,sans-serif" font-size="7" letter-spacing="1">REFILL WATER · 19 L</text>
+</svg>
