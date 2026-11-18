@@ -1,0 +1,1 @@
+import{bn as ge}from"./chunk-81-cvGCq.js";var i=(()=>{class t{constructor(){this.unreadNotices=0}static{this.ɵfac=function(o){return new(o||t)}}static{this.ɵprov=ge({token:t,factory:t.ɵfac,providedIn:`root`})}}return t})();export{i as t};
